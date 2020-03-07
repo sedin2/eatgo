@@ -1,5 +1,8 @@
 package kr.co.mocha.eatgo.interfaces;
 
+import kr.co.mocha.eatgo.application.RestaurantService;
+import kr.co.mocha.eatgo.domain.MenuItemRepository;
+import kr.co.mocha.eatgo.domain.MenuItemRepositoryImpl;
 import kr.co.mocha.eatgo.domain.RestaurantRepository;
 import kr.co.mocha.eatgo.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
@@ -25,6 +28,12 @@ class RestaurantControllerTest {
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
 
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository menuItemRepository;
+
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
+
     @Test
     public void list() throws Exception {
         mvc.perform(get("/restaurants"))
@@ -40,7 +49,8 @@ class RestaurantControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":1004")))
                 .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
-                .andExpect(content().string(containsString("\"address\":\"Seoul\"")));
+                .andExpect(content().string(containsString("\"address\":\"Seoul\"")))
+                .andExpect(content().string(containsString("Kimchi")));
 
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
