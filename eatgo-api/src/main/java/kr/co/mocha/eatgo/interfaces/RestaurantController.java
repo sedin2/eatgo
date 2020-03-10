@@ -1,7 +1,6 @@
 package kr.co.mocha.eatgo.interfaces;
 
 import kr.co.mocha.eatgo.application.RestaurantService;
-import kr.co.mocha.eatgo.domain.MenuItem;
 import kr.co.mocha.eatgo.domain.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +34,20 @@ public class RestaurantController {
 
     @PostMapping("/restaurants")
     public ResponseEntity<?> create(@RequestBody Restaurant resource) throws URISyntaxException {
-        String name = resource.getName();
-        String address = resource.getAddress();
-
-        Restaurant restaurant = new Restaurant(name, address);
-        restaurantService.addRestaurant(restaurant);
+        Restaurant restaurant = restaurantService.addRestaurant(
+                Restaurant.builder()
+                .name(resource.getName())
+                .address(resource.getAddress())
+                .build());
 
         URI location = new URI("/restaurants/" + restaurant.getId());
         return ResponseEntity.created(location).body("{}");
+    }
+
+    @PatchMapping("/restaurants/{id}")
+    public String update(@PathVariable("id") Long id, @RequestBody Restaurant resource) {
+        restaurantService.updateRestaurant(id, resource.getName(), resource.getAddress());
+
+        return "{}";
     }
 }
