@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class MenuItemService {
 
+    @Autowired
     private MenuItemRepository menuItemRepository;
 
     @Autowired
@@ -20,7 +21,7 @@ public class MenuItemService {
     public void bulkUpdate(Long restaurantId, List<MenuItem> menuItems) {
         for (MenuItem menuItem : menuItems) {
             menuItem.setRestaurantId(restaurantId);
-            menuItemRepository.save(menuItems);
+            menuItemRepository.save(menuItem);
         }
     }
 }
