@@ -24,4 +24,8 @@ public class MenuItemService {
             menuItemRepository.save(menuItem);
         }
     }
+
+    public void delete(long restaurantId) {
+
+    }
 }
