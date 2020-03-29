@@ -12,7 +12,6 @@ import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -58,30 +57,6 @@ class RestaurantServiceTests {
         Restaurant restaurant = restaurantService.getRestaurant(1004L);
     }
 
-    private void mockRestaurantRepository() {
-        Restaurant restaurant = Restaurant.builder()
-                .id(1004L)
-                .name("Bob zip")
-                .address("Seoul")
-                .build();
-
-        List<Restaurant> restaurants = new ArrayList<>();
-        restaurants.add(restaurant);
-        given(restaurantRepository.findAll()).willReturn(restaurants);
-
-        given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
-
-    }
-
-    private void mockMenuItemRepository() {
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(MenuItem.builder()
-                .name("Kimchi")
-                .build());
-
-        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
-    }
-
     @Test
     public void addRestaurant() {
         given(restaurantRepository.save(any())).will(invocation -> {
@@ -114,5 +89,29 @@ class RestaurantServiceTests {
         restaurantService.updateRestaurant(1004L, "Sool zip", "Busan");
 
         assertThat(restaurant.getName(), is("Sool zip"));
+    }
+
+    private void mockRestaurantRepository() {
+        Restaurant restaurant = Restaurant.builder()
+                .id(1004L)
+                .name("Bob zip")
+                .address("Seoul")
+                .build();
+
+        List<Restaurant> restaurants = new ArrayList<>();
+        restaurants.add(restaurant);
+        given(restaurantRepository.findAll()).willReturn(restaurants);
+
+        given(restaurantRepository.findById(1004L)).willReturn(Optional.of(restaurant));
+
+    }
+
+    private void mockMenuItemRepository() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(MenuItem.builder()
+                .name("Kimchi")
+                .build());
+
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
     }
 }
