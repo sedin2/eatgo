@@ -20,4 +20,10 @@ public class MenuItemController {
 
         return "";
     }
+
+    @DeleteMapping("/restaurants/{restaurantId}/menuitems")
+    public String menuItemAllDelete(@PathVariable ("restaurantId") Long restaurantId) {
+
+        return "";
+    }
 }

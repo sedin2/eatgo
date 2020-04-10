@@ -35,4 +35,13 @@ class MenuItemControllerTests {
 
         verify(menuItemService).bulkUpdate(eq(1L), any());
     }
+
+    @Test
+    public void menuItemAllDelete() throws Exception {
+        mvc.perform(delete("/restaurants/1/menuitems")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType("[]"))
+                .andExpect(status().isOk());
+
+    }
 }
