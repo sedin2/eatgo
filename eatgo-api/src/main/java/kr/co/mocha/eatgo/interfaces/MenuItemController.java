@@ -22,8 +22,8 @@ public class MenuItemController {
     }
 
     @DeleteMapping("/restaurants/{restaurantId}/menuitems")
-    public String menuItemAllDelete(@PathVariable ("restaurantId") Long restaurantId) {
-
+    public String DeleteAllMenuItem(@PathVariable ("restaurantId") Long restaurantId) {
+        menuItemService.deleteAllMenuItems(restaurantId);
         return "";
     }
 }

@@ -31,4 +31,8 @@ public class MenuItemService {
         menuItem.setRestaurantId(restaurantId);
         menuItemRepository.save(menuItem);
     }
+
+    public void deleteAllMenuItems(Long restaurantId) {
+        menuItemRepository.deleteAll();
+    }
 }

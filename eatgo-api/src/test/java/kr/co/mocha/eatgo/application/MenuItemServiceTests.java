@@ -44,4 +44,9 @@ public class MenuItemServiceTests {
         verify(menuItemRepository, times(1)).deleteById(eq(1004L));
 
     }
+
+    @Test
+    public void deleteAll() {
+        
+    }
 }
